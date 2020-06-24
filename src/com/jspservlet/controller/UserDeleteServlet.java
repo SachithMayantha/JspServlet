@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.jspservlet.dao.UserDAO;
 
@@ -24,20 +25,27 @@ public class UserDeleteServlet extends HttpServlet {
     }
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getServletPath();
+		//don't create another new session
+		HttpSession session=request.getSession(false);
 		
-		switch(action) {
-		case "/delete":
-			try {
-				deleteUser(request, response);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		if(session!=null && session.getAttribute("user")!=null) {
+			String action = request.getServletPath();
+			
+			switch(action) {
+			case "/delete":
+				try {
+					deleteUser(request, response);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+	
 			}
-			break;
-
+		}else {
+			response.sendRedirect(request.getContextPath()+"/login.jsp");
+			System.out.println("session is working in UserDelete");
 		}
-		
 	}
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException{

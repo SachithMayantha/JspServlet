@@ -6,18 +6,18 @@
 <head>
 	<title>User List</title>
 	<link rel="stylesheet"
-		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-		crossorigin="anonymous">
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
   <div class="jumbotron">
 	<header>
-		<nav class="navbar navbar-expand-md navbar-dark">
 			<h1>ABC Company</h1>
-		</nav>
-	</header>
+	<div class="container text-right">
+	<form action="logout">
+	<button type="submit" value="LOGOUT" class="btn btn-success">Logout</button>
+	</form>
+	</div></header>
 	<br>
 
 	<div class="row">
@@ -25,8 +25,9 @@
 			<h3 class="text-center">List of Users</h3>
 			<hr>
 			<div class="container text-left">
-
-				<a href="insert.jsp" class="btn btn-success">New User</a>
+				<form action="new">
+					<button type="submit" class="btn btn-success">New User</button>
+				</form>
 			</div>
 			<br>
 			<table class="table table-bordered">

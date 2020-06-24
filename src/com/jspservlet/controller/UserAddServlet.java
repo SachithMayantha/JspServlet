@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.jspservlet.dao.UserDAO;
 import com.jspservlet.model.User;
@@ -25,18 +26,25 @@ public class UserAddServlet extends HttpServlet {
     }
   
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getServletPath();
-		switch (action) {
-		case "/insert":
-		try {
-			insertUser(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//don't create another new session
+		HttpSession session=request.getSession(false);
+		System.out.println("UserAdd class called");
+		if(session!=null && session.getAttribute("user")!=null) {
+			String action = request.getServletPath();
+			switch (action) {
+			case "/insert":
+			try {
+				insertUser(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;	
+			}
+		}else {
+			response.sendRedirect(request.getContextPath()+"/login.jsp");
+			System.out.println("session is working in UserAdd");
 		}
-		break;	
-		}
-		
 	}
 	private void insertUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException{

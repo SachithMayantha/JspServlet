@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.jspservlet.dao.UserDAO;
 import com.jspservlet.model.User;
@@ -22,18 +23,25 @@ public class UserUpdateServlet extends HttpServlet {
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getServletPath();
+		HttpSession session = request.getSession(false);
 		
-		switch (action) {
-		case "/update":
-		try {
-			updateUser(request, response);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(session!=null && session.getAttribute("user")!=null) {
+			String action = request.getServletPath();
+			
+			switch (action) {
+			case "/update":
+			try {
+				updateUser(request, response);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			}		
+		}else {
+			response.sendRedirect(request.getContextPath()+"/login.jsp");
+			System.out.println("session is working in UserUpdate");
 		}
-		break;
-		}		
 	}
 	
 	private void updateUser(HttpServletRequest request, HttpServletResponse response)

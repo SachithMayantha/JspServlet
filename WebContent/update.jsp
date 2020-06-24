@@ -21,7 +21,7 @@
 						<fieldset class="form-group">
 							<label>User ID</label> <input type="text"
 							value="<c:out value='${user.id}'/>" class="form-control"
-							name="id" required="required">
+							name="id" readonly>
 						</fieldset>
 
 						<fieldset class="form-group">
@@ -29,12 +29,19 @@
 							value="<c:out value='${user.username}' />" class="form-control"
 							name="username" required="required">
 						</fieldset>
-
+						
+						<fieldset class="form-group">
+							<label>Password</label> <input type="password"
+							value="<c:out value='${user.password}' />" class="form-control"
+							name="password" readonly>
+						</fieldset>
+						
 						<fieldset class="form-group">
 							<label>User Department</label> <input type="text"
 							value="<c:out value='${user.department}' />" class="form-control"
 							name="department">
 						</fieldset>
+						
 						<input type="submit" class="btn btn-success" value="Update">
 					</form>
 				</div>

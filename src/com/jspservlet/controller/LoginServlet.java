@@ -28,16 +28,19 @@ public class LoginServlet extends HttpServlet {
 		   		    
 	     if (user.isValid())
 	     {
-		        
-	          HttpSession session = request.getSession(true);	    
-	          session.setAttribute("currentSessionUser",user);
-	          response.sendRedirect(request.getContextPath()+"/users"); //logged-in page      		
+	    	  //create a session
+	          HttpSession session = request.getSession(true);
+	          //assign the object to currentSessionUser
+	          session.setAttribute("user",user); 
+	          
+	          response.sendRedirect(request.getContextPath()+"/users"); //logged-in page
+	          
 	     }
 		        
-	     else 
+	     else {
 	          response.sendRedirect("loginError.jsp"); //error page 
 		} 
-			
+	}
 			
 		catch (Throwable theException) 	    
 		{
