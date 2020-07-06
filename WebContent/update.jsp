@@ -39,7 +39,14 @@
 						<fieldset class="form-group">
 							<label>User Department</label> <input type="text"
 							value="<c:out value='${user.department}' />" class="form-control"
-							name="department">
+							name="department" list="department">
+							<datalist id="department">
+							    <option value="Technical">
+							    <option value="Finance">
+							    <option value="Marketing">
+							    <option value="Transportation">
+							    <option value="HR">
+							  </datalist>
 						</fieldset>
 						
 						<input type="submit" class="btn btn-success" value="Update">

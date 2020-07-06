@@ -46,7 +46,6 @@ public class UserUpdateServlet extends HttpServlet {
 	
 	private void updateUser(HttpServletRequest request, HttpServletResponse response)
 			throws SQLException, IOException{
-		System.out.println("updateUser() called");
 		//retrieve user details using request object
 		int id = Integer.parseInt(request.getParameter("id"));
 		String username = request.getParameter("username");
@@ -57,6 +56,7 @@ public class UserUpdateServlet extends HttpServlet {
 		User user = new User(id, username, password, department,valid);
 		userDAO.updateUser(user);
 		response.sendRedirect(request.getContextPath()+"/users");
+		System.out.println("updateUser() called");
 	}
 
 }

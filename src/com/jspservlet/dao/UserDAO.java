@@ -1,5 +1,6 @@
 package com.jspservlet.dao;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class UserDAO {
 	}
 
 	// create or insert user
-	public void insertUser(User user) throws SQLException {
+	public void insertUser(User user) throws SQLException, IOException {
 		EncryptDecrypt ed = new EncryptDecrypt();
 		String encrypted;
 		// Establishing a connection
@@ -107,7 +108,7 @@ public class UserDAO {
 			PreparedStatement prepareStatement = currentCon.prepareStatement(INSERT_USERS_SQL);
 			encrypted = ed.encrypt(user.getPassword());
 			prepareStatement.setInt(1, user.getId());
-			prepareStatement.setString(2, user.getUsername());
+			prepareStatement.setString(2, user.getUsername().trim());
 			prepareStatement.setString(3, encrypted);
 			prepareStatement.setString(4, user.getDepartment());
 			prepareStatement.setBoolean(5, true);
@@ -120,13 +121,14 @@ public class UserDAO {
 
 	// update user
 	public void updateUser(User user) throws SQLException {
+		System.out.println("Update DAO called");
 		PreparedStatement statement = null;
 		// Establishing a connection
 		try {
 			Connection connection = ConnectionManager.getConnection();
 			// create a statement using connection object
 			statement = connection.prepareStatement(UPDATE_USERS_SQL);
-			statement.setString(1, user.getUsername());
+			statement.setString(1, user.getUsername().trim());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getDepartment());
 			statement.setBoolean(4, true);
