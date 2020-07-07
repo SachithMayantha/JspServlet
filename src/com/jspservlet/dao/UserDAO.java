@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.jspservlet.db.ConnectionManager;
 import com.jspservlet.model.User;
 import com.jspservlet.util.EncryptDecrypt;
 
-public class UserDAO {
+public class UserDAO{
 	static Connection currentCon = null;
 	static ResultSet rs = null;
 
@@ -96,23 +95,25 @@ public class UserDAO {
 	public void encryptPassword() {
 
 	}
-
 	// create or insert user
 	public void insertUser(User user) throws SQLException, IOException {
 		EncryptDecrypt ed = new EncryptDecrypt();
 		String encrypted;
 		// Establishing a connection
 		try {
+			
 			currentCon = ConnectionManager.getConnection();
 			// create a statement using connection object
 			PreparedStatement prepareStatement = currentCon.prepareStatement(INSERT_USERS_SQL);
 			encrypted = ed.encrypt(user.getPassword());
 			prepareStatement.setInt(1, user.getId());
-			prepareStatement.setString(2, user.getUsername().trim());
+			prepareStatement.setString(2, user.getUsername());
 			prepareStatement.setString(3, encrypted);
 			prepareStatement.setString(4, user.getDepartment());
 			prepareStatement.setBoolean(5, true);
+			System.out.println("set values in DAO");
 			prepareStatement.executeUpdate();
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

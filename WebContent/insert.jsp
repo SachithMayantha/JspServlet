@@ -31,7 +31,7 @@
 
 						<fieldset class="form-group">
 							<label>User Password (must be 8-15 characters only)</label> <input type="password" class="form-control"
-							name="password" required="required" pattern="[0-9]{8,15}"
+							name="password" required="required" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}"
 							 placeholder="Enter the password">
 						</fieldset>
 
