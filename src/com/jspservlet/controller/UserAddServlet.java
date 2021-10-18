@@ -26,7 +26,7 @@ public class UserAddServlet extends HttpServlet {
         this.userDAO = new UserDAO();
     }
   
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//don't create another new session
 		HttpSession session=request.getSession(false);
 		System.out.println("UserAdd class called");
@@ -47,6 +47,7 @@ public class UserAddServlet extends HttpServlet {
 			System.out.println("session is working in UserAdd");
 		}
 	}
+	
 	//check the inputs are valid or not
 	public Boolean check(boolean done,HttpServletRequest request) {
 		System.out.println("check() called");
@@ -61,6 +62,7 @@ public class UserAddServlet extends HttpServlet {
 		else
 			return true;	
 	}
+	
 	private void insertUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException{
 		//retrieve user details using request object
